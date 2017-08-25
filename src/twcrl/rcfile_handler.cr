@@ -1,19 +1,39 @@
 require "yaml"
 
 module Twcrl
+  class RcfileBuilder
+    YAML.mapping(
+      profiles: YAML::Any?,
+      configuration: YAML::Any?,
+    )
+  end
+
   class RcfileHandler
     def initialize
-      @config = {} of YAML::Type => YAML::Type
+      # @config = {} of YAML::Type => YAML::Type
+      # @config = load_file
+    end
+
+    def load_file
       if File.exists?(file_path)
-        data = YAML.parse(File.read(file_path))
-        @config = data.as_h
+        RcfileBuilder.from_yaml(File.read(file_path))
       else
-        File.touch(file_path)
+        yaml =<<-YAML
+        ---
+        profiles:
+          default_name:
+            default_consumer_key:
+        configuration:
+          default_profile:
+          - default_name
+          - default_consumer_key
+        YAML
+        RcfileBuilder.from_yaml(yaml)
       end
     end
 
     def save : Void
-      File.write(@file_name, @config.to_yaml)
+      File.write(@file_name, config.to_yaml)
     end
 
     def file_path : String
