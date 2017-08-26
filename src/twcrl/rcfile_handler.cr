@@ -23,9 +23,13 @@ module Twcrl
       @config ||= load_file
     end
 
+    def load_oauth
+      config["profiles"][screen_name][consumer_key]
+    end
+
     def set_profile(screen_name : String, consumer_key : String, consumer_secret : String, access_token : String, access_token_secret : String)
       yaml =<<-YAML
-      #{config["configuration"].to_yaml}
+      #{config.to_yaml}
 
       profiles:
         #{screen_name}:
@@ -53,15 +57,6 @@ module Twcrl
       else
         yaml =<<-YAML
         ---
-        profiles:
-          default_screen_name:
-            default_consumer_key:
-              screen_name:
-              consumer_key:
-              consumer_secret:
-              access_token:
-              access_token_secret:
-
         configuration:
           default_profile:
             screen_name: default_screen_name
