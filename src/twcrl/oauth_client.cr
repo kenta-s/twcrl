@@ -5,9 +5,10 @@ module Twcrl
     def initialize(@http_client : HTTP::Client, @consumer_key : String, @consumer_secret : String, @request_token : OAuth::RequestToken? = nil, @consumer : OAuth::Consumer? = nil, @authorize_uri : String? = nil)
     end
 
-    def authorize! : Void
+    def authorize! : OAuth::AccessToken?
       access_token = obtain_access_token
       consumer.authenticate(@http_client, access_token) if access_token
+      access_token
     end
 
     def obtain_access_token : OAuth::AccessToken?
