@@ -1,7 +1,11 @@
 require "./twcrl/*"
 
-cli = Twcrl::OauthClient.new("consumer key", "consumer secret")
-access_token = cli.obtain_access_token
-token = access_token.token
-secret = access_token.secret
+client = HTTP::Client.new("api.twitter.com", tls: true)
+cli = Twcrl::OauthClient.new(client, ENV["TWITTER_KEY"], ENV["TWITTER_SECRET"])
+cli.authorize!
 
+# examples:
+#
+# path = "/1.1/followers/ids.json"
+# response = client.get(path)
+# puts response.body

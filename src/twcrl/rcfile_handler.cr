@@ -18,7 +18,7 @@ module Twcrl
       if File.exists?(file_path)
         RcfileBuilder.from_yaml(File.read(file_path))
       else
-        yaml =<<-YAML
+        yaml = <<-YAML
         ---
         profiles:
           default_name:
