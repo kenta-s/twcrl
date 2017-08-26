@@ -19,6 +19,18 @@ module Twcrl
       key.to_s
     end
 
+    def access_token : String
+      profile["access_token"].to_s
+    end
+
+    def access_token_secret : String
+      profile["access_token_secret"].to_s
+    end
+
+    def consumer_secret : String
+      profile["consumer_secret"].to_s
+    end
+
     def config
       @config ||= load_file
     end
@@ -28,7 +40,7 @@ module Twcrl
     end
 
     def set_profile(screen_name : String, consumer_key : String, consumer_secret : String, access_token : String, access_token_secret : String)
-      yaml =<<-YAML
+      yaml = <<-YAML
       #{config.to_yaml}
 
       profiles:
@@ -55,7 +67,7 @@ module Twcrl
       if File.exists?(file_path)
         YAML.parse(File.read(file_path))
       else
-        yaml =<<-YAML
+        yaml = <<-YAML
         ---
         configuration:
           default_profile:
