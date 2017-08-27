@@ -79,7 +79,6 @@ module Twcrl
         response = client.get(path)
         puts response.body
       when "post"
-        # TODO: make sure this works
         response = client.post_form(path, @params)
         puts response.body
       else
