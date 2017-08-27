@@ -2,10 +2,13 @@ require "yaml"
 
 module Twcrl
   class RcfileHandler
+    property directory : String
+
     def initialize(@config : YAML::Any? = nil)
+      @directory = File.expand_path("~")
     end
 
-    def profile
+    def profile : YAML::Any
       config["profiles"][screen_name][consumer_key]
     end
 
@@ -31,15 +34,15 @@ module Twcrl
       profile["consumer_secret"].to_s
     end
 
-    def config
+    def config : YAML::Any
       @config ||= load_file
     end
 
-    def load_oauth
+    def load_oauth : YAML::Any
       config["profiles"][screen_name][consumer_key]
     end
 
-    def set_profile(screen_name : String, consumer_key : String, consumer_secret : String, access_token : String, access_token_secret : String)
+    def set_profile(screen_name : String, consumer_key : String, consumer_secret : String, access_token : String, access_token_secret : String) : Void
       yaml = <<-YAML
       #{config.to_yaml}
 
@@ -63,7 +66,7 @@ module Twcrl
       save
     end
 
-    def load_file
+    def load_file : YAML::Any
       if File.exists?(file_path)
         YAML.parse(File.read(file_path))
       else
@@ -84,14 +87,6 @@ module Twcrl
 
     def file_path : String
       File.join(directory, ".twcrlrc")
-    end
-
-    def directory : String
-      @directory ||= File.expand_path("~")
-    end
-
-    def directory=(dir : String) : Void
-      @directory = dir
     end
   end
 end
