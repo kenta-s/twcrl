@@ -5,7 +5,7 @@ curl like CLI for Twitter API. Inspired by Twurl.
 ## Installation
 
 ```
-$ crystal build src/twcrl --release
+$ crystal build src/twcrl.cr --release
 ```
 
 ## Usage
