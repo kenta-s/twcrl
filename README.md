@@ -1,22 +1,33 @@
 # twcrl
 
-TODO: Write a description here
+curl like CLI for Twitter API. Inspired by Twurl.
 
 ## Installation
 
-TODO: Write installation instructions here
+```
+$ crystal build src/twcrl --release
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Authorize the app
+```
+$ ./twcrl authorize --consumer-key key --consumer-secret secret
+```
 
-## Development
+Make GET request
+```
+$ ./twcrl /1.1/home_timeline.json
+```
 
-TODO: Write development instructions here
+Make POST request
+```
+$ ./twcrl /1.1/statuses/update.json -x post -d "hello"
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/twcrl/fork )
+1. Fork it ( https://github.com/kenta-s/twcrl/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -24,4 +35,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) kenta-s - creator, maintainer
+- [kenta-s](https://github.com/kenta-s) kenta-s - creator, maintainer
