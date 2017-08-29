@@ -66,8 +66,9 @@ module Twcrl
 
       unless access_token.nil?
         rc = Twcrl::RcfileHandler.new
-        rc.set_default_profile("kenta_s_dev", consumer_key)
-        rc.set_profile("kenta_s_dev", consumer_key, consumer_secret, access_token.token, access_token.secret)
+        screen_name = access_token.extra["screen_name"]
+        rc.set_default_profile(screen_name, consumer_key)
+        rc.set_profile(screen_name, consumer_key, consumer_secret, access_token.token, access_token.secret)
       end
     end
 
