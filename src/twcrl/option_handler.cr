@@ -1,4 +1,5 @@
 require "option_parser"
+require "uri"
 
 module Twcrl
   class OptionHandler
@@ -80,7 +81,11 @@ module Twcrl
         response = client.get(path)
         puts response.body
       when "post"
-        response = client.post_form(path, @params)
+        # TODO: handle more than one parameters
+        params = @params.split("=")
+        attribute = params.shift
+        query = "#{attribute}=#{URI.escape(params.join)}"
+        response = client.post_form(path, (query))
         puts response.body
       else
         raise "Invalid HTTP method: #{@http_method}"
