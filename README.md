@@ -5,6 +5,8 @@ curl like CLI for Twitter API. Inspired by Twurl.
 ## Installation
 
 ```
+$ git clone git@github.com:kenta-s/twcrl.git
+$ cd twcrl
 $ crystal build src/twcrl.cr --release
 ```
 
